@@ -1,26 +1,23 @@
-//Constructor
-function Person(firstName, lastName) {
-  this.firstName = firstName;
-  this.lastName = lastName;
+class Person {
+  constructor(firstName, lastName, dob) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthday = dob;
+  }
+  greeting() {
+    return `Hello ${this.firstName} ${this.lastName}  `;
+  }
+  getMarried(newLastName) {
+    this.lastName = newLastName;
+  }
+  static addNumbers(x, y) {
+    //dont need instance to work!
+    return x + y;
+  }
 }
-//Prototype
-Person.prototype.greeting = function () {
-  return `Hello ${this.firstName} ${this.lastName}`;
-};
+const marry = new Person("Marry", "Jane", "03-04-1995");
+marry.getMarried("Smith");
 
-const person1 = new Person("John", "Doe");
-
-//Customer constructor
-function Customer(firstName, lastName, phone, membership) {
-  Person.call(this, firstName, lastName);
-  this.phone = phone;
-  this.membership = membership;
-}
-//Inherit prototype
-Customer.prototype = Object.create(Person.prototype);
-
-//Create a customer
-const customer1 = new Customer("Tom", "Smith", "555-555", "Standard");
-
-console.log(customer1);
-console.log(customer1.greeting()); // not a function, bcs not inheriting prototype of person, IF not Customer.prototype = Object.create(Person.prototype)
+console.log(marry);
+console.log(marry.greeting());
+console.log(Person.addNumbers(1, 3)); //no marry, no shit just do it
