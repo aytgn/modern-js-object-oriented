@@ -1,31 +1,26 @@
-//Object.prototype
-//Person.prototype
-
 //Constructor
-function Person(firstName, lastName, dob) {
-  (this.firstName = firstName),
-    (this.lastName = lastName),
-    (this.birthday = new Date(dob));
+function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
 }
-//PROTOTYPE
-Person.prototype.calculateAge = function () {
-  const diff = Date.now() - this.birthday.getTime();
-  const ageDate = new Date(diff);
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
-};
-Person.prototype.getFullName = function () {
-  return `${this.firstName} ${this.lastName}`;
-};
-Person.prototype.getMarried = function (newLastName) {
-  this.lastName = newLastName;
+//Prototype
+Person.prototype.greeting = function () {
+  return `Hello ${this.firstName} ${this.lastName}`;
 };
 
-const john = new Person("John", "Doe", "8-12-95");
-const mary = new Person("Mary", "Johnson", "March 20 1978");
-console.log(mary);
-console.log(john.calculateAge());
-console.log(mary.getFullName());
-mary.getMarried("Smith");
-console.log(mary.getFullName());
-console.log(mary.hasOwnProperty("firstName"));
-console.log(mary.hasOwnProperty("getFullName"));
+const person1 = new Person("John", "Doe");
+
+//Customer constructor
+function Customer(firstName, lastName, phone, membership) {
+  Person.call(this, firstName, lastName);
+  this.phone = phone;
+  this.membership = membership;
+}
+//Inherit prototype
+Customer.prototype = Object.create(Person.prototype);
+
+//Create a customer
+const customer1 = new Customer("Tom", "Smith", "555-555", "Standard");
+
+console.log(customer1);
+console.log(customer1.greeting()); // not a function, bcs not inheriting prototype of person, IF not Customer.prototype = Object.create(Person.prototype)
