@@ -1,23 +1,19 @@
 class Person {
-  constructor(firstName, lastName, dob) {
+  constructor(firstName, lastName) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.birthday = dob;
   }
   greeting() {
-    return `Hello ${this.firstName} ${this.lastName}  `;
-  }
-  getMarried(newLastName) {
-    this.lastName = newLastName;
-  }
-  static addNumbers(x, y) {
-    //dont need instance to work!
-    return x + y;
+    return `Hello ${this.firstName} ${this.lastName} `;
   }
 }
-const marry = new Person("Marry", "Jane", "03-04-1995");
-marry.getMarried("Smith");
-
-console.log(marry);
-console.log(marry.greeting());
-console.log(Person.addNumbers(1, 3)); //no marry, no shit just do it
+class Customer extends Person {
+  constructor(firstName, lastName, phone, membership) {
+    super(firstName, lastName); //calls the parent class constructor!
+    this.phone = phone;
+    this.membership = membership;
+  }
+}
+const john = new Customer("John", "Doe", "555-555", "Standard");
+console.log(john);
+console.log(john.greeting()); //since customer is extension of person, we can use person prototypes!
